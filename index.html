@@ -1,32 +1,38 @@
 <html>
   <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ai website maker (average intelligence)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 </head>
   <body style="font-family: 'Bebas Neue', sans-serif; background-image:url(cool.png); background-repeat: no-repeat; background-size: cover;">
-    <div style="text-align: center; margin: auto; color: white;">
+    <div id="b" style="text-align: center; margin: auto; color: white;">
     <h1>Website maker</h1>
     <h2>It uses the new ai called api</h2>
     <p>(average programmer intelligence lol)</p>
     <h2>small business website: 25$</h2>
     <h2>big corp website: 50$</h2>
     <h2>let scam = law.sue("your name")</h2>
+    <form>
   <input type="text" placeholder="Enter your name or nickname" id="name">
   <br>  <br>
   <input type="email" placeholder="Enter your email" id="email">
   <br>  <br>
   <input type="text" placeholder="Enter what website you want" id="body">
   <br>  <br>
-  <button id="button">Send</button>
+  <input type="submit" id="button" value="Send">
+  </form>
   </div>
   <script>
-    document.getElementById("button").addEventListener("click", async () => {
+    document.getElementById("button").addEventListener("click", async (event) => {
+      event.preventDefault()
+      let b = document.getElementById("b")
+      let confirm = document.createElement("p")
       let name = document.getElementById("name").value
       let email = document.getElementById("email").value
       let body = document.getElementById("body").value
-        const webhookUrl = "https://discordapp.com/api/webhooks/1483599918965723166/A81ejgxj3VdBILEE3mu6jZV3ERQtu1Mbeu-8Tum0sL9Z561JepZTiJYaChw_ktIuryqQ";
+        const webhookUrl = "https://discord.com/api/webhooks/1483599918965723166/A81ejgxj3VdBILEE3mu6jZV3ERQtu1Mbeu-8Tum0sL9Z561JepZTiJYaChw_ktIuryqQ?wait=true";
        const discohookPayload = {
         "content": "Here's what the person asked for:",
        "embeds": [
@@ -40,11 +46,25 @@
   ],
     "attachments": []
   }
-   await fetch(webhookUrl, {
+  b.appendChild(confirm)
+  if(email.includes("@")){
+ try{
+ const response =  await fetch(webhookUrl, {
      method: "POST",
      headers: { "Content-Type": "application/json" },
      body: JSON.stringify(discohookPayload)
    });
+        if (!response.ok) {
+          throw new Error("");
+        }
+   confirm.innerText="Successfuly sent message. Wait for reply."
+  } catch(error) {
+    confirm.innerText="Failed to send message."
+  }
+  } else{
+    confirm.innerText="Real email, please stop trolling me."
+  }
+ 
   });
   </script>
   </body>
